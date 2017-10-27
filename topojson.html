@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)https://bl.ocks.org/mbostock/raw/4206573/ -->
+<html class="gr__bl_ocks_org"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<style>
+
+.legend, .new_legend {
+  cursor: pointer;
+}
+
+.states {
+  fill: none;
+  stroke: #fff;
+  stroke-linejoin: round;
+}
+
+</style>
+<style id="style-1-cropbar-clipper">/* Copyright 2014 Evernote Corporation. All rights reserved. */
+.en-markup-crop-options {
+    top: 18px !important;
+    left: 50% !important;
+    margin-left: -100px !important;
+    width: 200px !important;
+    border: 2px rgba(255,255,255,.38) solid !important;
+    border-radius: 4px !important;
+}
+
+.en-markup-crop-options div div:first-of-type {
+    margin-left: 0px !important;
+}
+</style></head>
+<body onload="drawmap()" data-gr-c-s-loaded="true">
+<select onchange="drawmap()" name="Attribute">
+  <option value="jobs">Jobs</option>
+  <option value="students">Students</option>
+</select>
+<select onchange="drawmap()" name="year">
+  <option value="2016">2016</option>
+  <option value="2015">2015</option>
+  <option value="2014">2014</option>
+  <option value="2013">2013</option>
+</select>
+<input onchange="drawmap()" type="checkbox" id="political"/>
+<label for="checkbox">Political</label>
+<div id="usmap"></div>
+<script src="d3.v3.min.js"></script>
+<script src="topojson.v1.min.js"></script>
+<script>
+
+
+function drawmap(){
+
+  var param = $('[name="Attribute"]')[0].value;
+  var year = $('[name="year"]')[0].value;
+  var check_political = false;
+
+  if($("#political").is(':checked'))
+    check_political = true;  // checked
+else
+    check_political = false;  // unchecked
+
+  var x = d3.selectAll("#usmap")['0']['0'].childNodes;
+  d3.selectAll(x).remove();
+  console.log(param+year+check_political);
+var width = 960,
+    height = 500;
+var us_color_domain = [100,500,2000,5000,10000,50000,100000];
+
+var fill = d3.scale.linear()
+    .domain(us_color_domain)
+    .range(['#f0f9e8','#ccebc5','#a8ddb5','#7bccc4','#4eb3d3','#2b8cbe','#08589e']);
+
+var red_fill = d3.scale.linear()
+    .domain(us_color_domain)
+    .range(['#fee5d9','#fcbba1','#fc9272','#fb6a4a','#ef3b2c','#cb181d','#99000d']);
+
+var blue_fill = d3.scale.linear()
+    .domain(us_color_domain)
+    .range(['#eff3ff','#c6dbef','#9ecae1','#6baed6','#4292c6','#2171b5','#084594']);
+
+var path = d3.geo.path();
+
+var svg = d3.select("#usmap").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+d3.json("us.json", function(error, us) {
+  if (error) throw error;
+var states=topojson.feature(us, us.objects.states).features;
+for (var i = states.length - 1; i >= 0; i--) {
+  //console.log(states[i].id);
+}
+
+d3.csv("sampleus.csv", function(tsv) {
+      var data=tsv;
+      var jobs = {};
+//console.log(data);
+function getState(id){
+for (var i = 0; i < data.length; i++) {
+  if (data[i].id==id){
+    return data[i].State;
+    break;
+  }
+}
+}
+function getJobs(id){
+for (var i = 0; i < data.length; i++) {
+  if (data[i].id==id&&data[i].year==year){
+    //console.log(data[i].Jobs+data[i].State+data[i].year);
+    return data[i].Jobs.replace(",", "");
+    break;
+  }
+}
+}
+function getStudents(id){
+for (var i = 0; i < data.length; i++) {
+  if (data[i].id==id&&data[i].year==year){
+    //console.log(data[i].Jobs+data[i].State+data[i].year);
+    return data[i].IntStudents.replace(",", "");
+    break;
+  }
+}
+}
+function getEconomy(id){
+for (var i = 0; i < data.length; i++) {
+  if (data[i].id==id&&data[i].year==year){
+    //console.log(data[i].Jobs+data[i].State+data[i].year);
+    return data[i].IntStudents.replace(",", "");
+    break;
+  }
+}
+}
+function getWin(id){
+for (var i = 0; i < data.length; i++) {
+  if (data[i].id==id&&data[i].year==year){
+    //console.log(data[i].Jobs+data[i].State+data[i].year);
+    return data[i].political;
+    break;
+  }
+}
+}
+if (param=="jobs") {
+  svg.append("g")
+      .attr("class", "states")
+    .selectAll("path")
+      .data(topojson.feature(us, us.objects.states).features)
+    .enter().append("path")
+      .attr("d", path)
+      .attr("id",function(d) { return getState(d.id);  })
+      .on("mouseover", lightenUp)
+      .on("mouseout", lightenDown)
+      .style("fill", function(d) { 
+      if (check_political == false){
+        return fill(getJobs(d.id));
+      }
+      if(check_political == true && getWin(d.id)=='D')
+        return blue_fill(getJobs(d.id));
+      if(check_political == true && getWin(d.id)=='R')
+        return red_fill(getJobs(d.id));
+      
+      });
+}
+if (param=="students") {
+  svg.append("g")
+      .attr("class", "states")
+    .selectAll("path")
+      .data(topojson.feature(us, us.objects.states).features)
+    .enter().append("path")
+      .attr("d", path)
+      .attr("id",function(d) { return getState(d.id); })
+      .on("mouseover", lightenUp)
+      .on("mouseout", lightenDown)
+      .style("fill", function(d) { 
+      if (check_political == false){
+        return fill(getStudents(d.id));
+      }
+      if(check_political == true && getWin(d.id)=='D')
+        return blue_fill(getStudents(d.id));
+      if(check_political == true && getWin(d.id)=='R')
+        return red_fill(getStudents(d.id));
+      
+      });
+}
+  svg.append("path")
+      .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a.id !== b.id; }))
+      .attr("class", "states")
+      .attr("d", path);
+
+if (check_political == false){
+  //Adding a legend
+  var us_legend = svg.selectAll("g.legend")
+  .data(us_color_domain)
+  .enter().append("g")
+  .attr("class", "legend");
+
+  var ls_w = 20, ls_h = 20;
+
+  us_legend.append("rect")
+  .attr("x", 20)
+  .attr("y", function(d, i){ return height - (i*ls_h) - 2*ls_h;})
+  .attr("width", ls_w)
+  .attr("height", ls_h)
+  .style("fill", function(d, i) { return fill(d); })
+  .style("opacity", 0.8);
+
+  us_legend.append("text")
+  .attr("x", 50)
+  .attr("y", function(d, i){ return height - (i*ls_h) - ls_h - 4;})
+  .text(function(d, i){ return us_color_domain[i].toString(); });
+}
+if (check_political == true){
+  //Adding a legend
+
+  var us_legend = svg.selectAll("g.legend")
+  .data(us_color_domain)
+  .enter().append("g")
+  .attr("class", "legend");
+
+  var ls_w = 20, ls_h = 20;
+
+  us_legend.append("rect")
+  .attr("x", 40)
+  .attr("y", function(d, i){ return height - (i*ls_h) - 2*ls_h;})
+  .attr("width", ls_w)
+  .attr("height", ls_h)
+  .style("fill", function(d, i) { return red_fill(d); })
+  .style("opacity", 0.8);
+
+  var us_legend2 = svg.selectAll("g.new_legend")
+  .data(us_color_domain)
+  .enter().append("g")
+  .attr("class", "new_legend");
+
+  var ls_w = 20, ls_h = 20;
+
+  us_legend2.append("rect")
+  .attr("x", 10)
+  .attr("y", function(d, i){ return height - (i*ls_h) - 2*ls_h;})
+  .attr("width", ls_w)
+  .attr("height", ls_h)
+  .style("fill", function(d, i) { return blue_fill(d); })
+  .style("opacity", 0.8);
+
+  us_legend.append("text")
+  .attr("x", 65)
+  .attr("y", function(d, i){ return height - (i*ls_h) - ls_h - 4;})
+  .text(function(d, i){ return us_color_domain[i].toString(); });
+}
+
+});
+});
+function lightenUp(d, i){
+  d3.select(this)
+    .transition()
+    .duration(100)
+    .ease("bounce")
+    .style("stroke-width", "3px")
+    .style("stroke", "red");
+}
+function lightenDown(d, i) {
+  d3.select(this)
+    .transition()
+    .duration(100)
+    .ease("bounce")
+    .style("stroke-width", "0.5px")
+    .style("stroke", "#fff");
+
+}
+}
+</script>
+</body></html>

@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)http://getbootstrap.com/examples/starter-template/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+
+    <title>Project</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./project_files/bootstrap.min.css" rel="stylesheet">
+
+    <link href="jquery-ui.css" rel="stylesheet">
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="./project_files/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="./project_files/starter-template.css" rel="stylesheet">
+
+    <link href="./project_files/custom-styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oswald|Sansita|Roboto|Satisfy|Lobster" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="./project_files/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="d3.v3.min.js"></script>
+    <script src="topojson.v1.min.js"></script>
+    <script src="//d3js.org/d3.geo.projection.v0.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="./project_files/jquery.min.js"></script>
+    <!-- <script src="js/horizontal_selector.js"></script> -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  </head>
+
+  <body onload="drawAllmap()">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top blue">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand cursive white" href="http://getbootstrap.com/examples/starter-template/#">International Student Demographics</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#" class="blue">Demo</a></li>
+            <!-- <li><a href="http://getbootstrap.com/examples/starter-template/#about">About</a></li>
+            <li><a href="http://getbootstrap.com/examples/starter-template/#contact">Contact</a></li> -->
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    
+
+    <div class="container">
+      <div style="margin-top:15px;" class="panel panel-default">
+        <div class="panel-body">
+        <form class="form-inline">
+          <div class="col-md-3" style="margin-top: 13px;">
+            <div class="radio-inline">
+            <label>
+                <input type="radio" name="Attribute" value="students" checked=""> <i class="fa fa-user" aria-hidden="true"></i> Students
+            </label>
+            </div>
+            <div class="radio-inline">
+            <label><input type="radio" name="Attribute" value="jobs">
+              <i class="fa fa-briefcase" aria-hidden="true"></i>
+              Jobs</label>
+            </div>
+          </div>
+          
+          <!-- <div class="form-group">
+          <label>Year</label>
+          <select onchange="drawAllmap()" name="year">
+            <option value="2016">2016</option>
+            <option value="2015">2015</option>
+            <option value="2014">2014</option>
+            <option value="2013">2013</option>
+          </select>
+          </div> -->
+          <div class="col-md-2" style="margin-top: 13px;">
+            <div class="form-group">
+              <input onchange="drawmap()" type="checkbox" id="political"/>
+              &nbsp;
+              <label for="checkbox">
+              <i class="fa fa-university" aria-hidden="true"></i>Political</label>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div id="slider" style="max-width: 100%;margin: auto;"></div>
+            <p style="text-align: center;">Year selected: <span id="slider-value"></span></p>
+          </div>
+          <div class="col-md-3 pull-right">
+            <button type="button" class="pull-right btn btn-info" data-toggle="modal" data-target="#myModal">View All</button>
+          </div> 
+        </form>
+        </div>
+      </div>
+      <p class="cursive">Choropleth US Map with students and jobs data with political impact</p>
+      <div class="row">
+      <div id="usmap" class="col-lg-6"></div>
+      <div class="col-lg-6">
+      <div class="divbubblechart" style="display: none;">
+      <div id="bubblechart" style="min-height: 400px; margin: 0 auto; float: right;"></div>
+      <button type="button" id ="closebubble" class="btn btn-info">Close</button>
+      </div>
+      <div id="barchart" style="min-height: 400px; margin: 0 auto; float: right;"></div>
+      
+        <!-- Trigger the modal with a button -->
+        </div>
+      </div>
+       <!-- <div class="row" style="margin-top: 10px;">
+        
+        
+      </div> -->
+       <p class="cursive center"> Choropleth World Map with international student data</p>
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div id="world_div"></div>
+        <div class="col-md-3"></div>
+      </div>
+
+            <!-- Modal -->
+      <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Modal</h4>
+            </div>
+            <div class="modal-body" id="barchartfull" style="min-height: 1200px;min-width: 500px">
+              <p></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    
+
+
+    <script>
+//$( ".divbubblechart" ).hide();
+$("#closebubble").click(function () {
+
+$( ".divbubblechart" ).hide();
+});
+
+$('input[name="Attribute"]').click(function(){
+  drawAllmap();
+});
+
+$("#slider").slider(
+{
+            value:2016,
+            min: 2013,
+            max: 2016,
+            step: 1,
+            slide: function( event, ui ) {
+                $( "#slider-value" ).html( ui.value );
+                drawAllmap();
+            }
+}
+);
+$( "#slider-value" ).html(  $('#slider').slider('value') );
+
+//US Map javascript start ---------->
+function drawAllmap(){
+
+  drawmap();
+  drawbar();
+  drawworld();
+  //drawbubble();
+}
+
+function drawmap(){
+
+  //var param = $('[name="Attribute"]')[0].value;
+  var param = $('input[name="Attribute"]:checked').val();
+  
+  var check_political = false;
+
+  if($("#political").is(':checked'))
+    check_political = true;  // checked
+else
+    check_political = false;  // unchecked
+
+  var x = d3.selectAll("#usmap")['0']['0'].childNodes;
+  d3.selectAll(x).remove();
+  
+var width = 600,
+    height = 400;
+var us_color_domain = [100,500,2000,5000,10000,50000,100000];
+
+var fill = d3.scale.linear()
+    .domain(us_color_domain)
+    .range(['#f0f9e8','#ccebc5','#a8ddb5','#7bccc4','#4eb3d3','#2b8cbe','#08589e']);
+
+var red_fill = d3.scale.linear()
+    .domain(us_color_domain)
+    .range(['#fee5d9','#fcbba1','#fc9272','#fb6a4a','#ef3b2c','#cb181d','#99000d']);
+
+var blue_fill = d3.scale.linear()
+    .domain(us_color_domain)
+    .range(['#eff3ff','#c6dbef','#9ecae1','#6baed6','#4292c6','#2171b5','#084594']);
+
+var projection = d3.geo.albersUsa()
+    .translate([width/2.5, height/2.5])
+    .scale(650);
+
+var path = d3.geo.path()
+          .projection(projection);;
+
+var svg = d3.select("#usmap").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+var ustool_div = d3.select("#usmap").append("div")   
+  .attr("class", "tooltip")               
+  .style("opacity", 0);
+
+
+
+d3.json("us.json", function(error, us) {
+  if (error) throw error;
+var states=topojson.feature(us, us.objects.states).features;
+for (var i = states.length - 1; i >= 0; i--) {
+  //console.log(states[i].id);
+}
+
+d3.csv("sampleus.csv", function(tsv) {
+      var data=tsv;
+      var jobs = {};
+//console.log(data);
+var year = $('#slider').slider('value');
+console.log(param+year+check_political);
+function getState(id){
+for (var i = 0; i < data.length; i++) {
+  if (data[i].id==id){
+    return data[i].State;
+    break;
+  }
+}
+}
+function getJobs(id){
+for (var i = 0; i < data.length; i++) {
+  if (data[i].id==id&&data[i].year==year){
+    //console.log(data[i].Jobs+data[i].State+data[i].year);
+    return data[i].Jobs.replace(",", "");
+    break;
+  }
+}
+}
+function getStudents(id){
+for (var i = 0; i < data.length; i++) {
+  if (data[i].id==id&&data[i].year==year){
+    //console.log(data[i].Jobs+data[i].State+data[i].year);
+    return data[i].IntStudents.replace(",", "");
+    break;
+  }
+}
+}
+function getEconomy(id){
+for (var i = 0; i < data.length; i++) {
+  if (data[i].id==id&&data[i].year==year){
+    //console.log(data[i].Jobs+data[i].State+data[i].year);
+    return data[i].IntStudents.replace(",", "");
+    break;
+  }
+}
+}
+function getWin(id){
+for (var i = 0; i < data.length; i++) {
+  if (data[i].id==id&&data[i].year==year){
+    //console.log(data[i].Jobs+data[i].State+data[i].year);
+    return data[i].political;
+    break;
+  }
+}
+}
+function lightenUp(d, i){
+  d3.select(this)
+    .transition()
+    .duration(100)
+    .ease("bounce")
+    .style("stroke-width", "3px")
+    .style("stroke", "red");
+  ustool_div.transition().duration(100)
+    .style("opacity", 1)
+    //tool_div.text(names[d.id] + " : " + getIntlStudents(names[d.id]))
+    ustool_div.html("<strong>Students to " + getState(d.id) + ":</strong> <span style='color:#fb6a4a'>" + getStudents(d.id) + "</span>")
+    .style("left", (d3.event.pageX) -30 + "px")
+    .style("top", (d3.event.pageY -100) + "px");
+}
+
+function lightenUpJob(d, i){
+  d3.select(this)
+    .transition()
+    .duration(100)
+    .ease("bounce")
+    .style("stroke-width", "3px")
+    .style("stroke", "red");
+  ustool_div.transition().duration(100)
+    .style("opacity", 1)
+    //tool_div.text(names[d.id] + " : " + getIntlStudents(names[d.id]))
+    ustool_div.html("<strong>Jobs in " + getState(d.id) + ":</strong> <span style='color:#fb6a4a'>" + getJobs(d.id) + "</span>")
+    .style("left", (d3.event.pageX) -30 + "px")
+    .style("top", (d3.event.pageY -100) + "px");
+}
+function lightenDown(d, i) {
+  d3.select(this)
+    .transition()
+    .duration(100)
+    .ease("bounce")
+    .style("stroke-width", "0.5px")
+    .style("stroke", "#fff")
+    .transition().duration(300)
+    .style("opacity", 0.8);
+    ustool_div.transition().duration(100)
+    .style("opacity", 0);
+}
+
+function clicked(d){
+  //alert(d.id);
+  drawbubble(d.id,getState(d.id));
+}
+
+if (param=="jobs") {
+  svg.append("g")
+      .attr("class", "states")
+    .selectAll("path")
+      .data(topojson.feature(us, us.objects.states).features)
+    .enter().append("path")
+      .attr("d", path)
+      .attr("id",function(d) { return getState(d.id);  })
+      .on("mouseover", lightenUpJob)
+      .on("mouseout", lightenDown)
+      .on("click", clicked)
+      .style("fill", function(d) { 
+      if (check_political == false){
+        return fill(getJobs(d.id));
+      }
+      if(check_political == true && getWin(d.id)=='D')
+        return blue_fill(getJobs(d.id));
+      if(check_political == true && getWin(d.id)=='R')
+        return red_fill(getJobs(d.id));
+      
+      });
+}
+if (param=="students") {
+  svg.append("g")
+      .attr("class", "states")
+    .selectAll("path")
+      .data(topojson.feature(us, us.objects.states).features)
+    .enter().append("path")
+      .attr("d", path)
+      .attr("id",function(d) { return getState(d.id); })
+      .on("mouseover", lightenUp)
+      .on("mouseout", lightenDown)
+      .on("click", clicked)
+      .style("fill", function(d) { 
+      if (check_political == false){
+        return fill(getStudents(d.id));
+      }
+      if(check_political == true && getWin(d.id)=='D')
+        return blue_fill(getStudents(d.id));
+      if(check_political == true && getWin(d.id)=='R')
+        return red_fill(getStudents(d.id));
+      
+      });
+}
+  svg.append("path")
+      .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a.id !== b.id; }))
+      .attr("class", "states")
+      .attr("d", path);
+
+if (check_political == false){
+  //Adding a legend
+  var us_legend = svg.selectAll("g.legend")
+  .data(us_color_domain)
+  .enter().append("g")
+  .attr("class", "legend");
+
+  var ls_w = 15, ls_h = 15;
+
+  us_legend.append("rect")
+  .attr("x", 20)
+  .attr("y", function(d, i){ return height - (i*ls_h) - 2*ls_h + 15;})
+  .attr("width", ls_w)
+  .attr("height", ls_h)
+  .style("fill", function(d, i) { return fill(d); })
+  .style("opacity", 0.8)
+  .style("margin-top", "10px");
+
+  us_legend.append("text")
+  .attr("x", 50)
+  .attr("y", function(d, i){ return height - (i*ls_h) - ls_h - 4 + 15;})
+  .text(function(d, i){ return us_color_domain[i].toString(); })
+  .style("font-size","12px");
+}
+if (check_political == true){
+  //Adding a legend
+
+  var us_legend = svg.selectAll("g.legend")
+  .data(us_color_domain)
+  .enter().append("g")
+  .attr("class", "legend");
+
+  var ls_w = 15, ls_h = 15;
+
+  us_legend.append("rect")
+  .attr("x", 40)
+  .attr("y", function(d, i){ return height - (i*ls_h) - 2*ls_h + 15;})
+  .attr("width", ls_w)
+  .attr("height", ls_h)
+  .style("fill", function(d, i) { return red_fill(d); })
+  .style("opacity", 0.8);
+
+  //console.log(us_color_domain);
+  var us_legend2 = svg.selectAll("g.new_legend")
+  .data(us_color_domain)
+  .enter().append("g")
+  .attr("class", "new_legend");
+
+  var ls_w = 15, ls_h = 15;
+
+  us_legend2.append("rect")
+  .attr("x", 10)
+  .attr("y", function(d, i){ return height - (i*ls_h) - 2*ls_h + 15;})
+  .attr("width", ls_w)
+  .attr("height", ls_h)
+  .style("fill", function(d, i) { return blue_fill(d); })
+  .style("opacity", 0.8);
+
+  us_legend.append("text")
+  .attr("x", 65)
+  .attr("y", function(d, i){ return height - (i*ls_h) - ls_h - 4 + 15;})
+  .text(function(d, i){ return us_color_domain[i].toString(); })
+  .style("font-size","12px");
+}
+
+});
+});
+
+}
+
+//US Map javascript end ---------->
+
+
+//Bullet bar chart start -------------->
+function drawbar(){
+  
+d3.csv("sampleusbar.csv", function(tsv) {
+    
+    var data=tsv;
+    var id_arr = [];
+    var States = [];
+    var students = [];
+    var jobs = [];
+    var count = 0;
+    var baryear = $('#slider').slider('value');
+    console.log(baryear+"Barchart");
+    for (var i = 0; i < data.length; i++) {
+      if(data[i].year==baryear&&count<15){
+          id_arr.push(data[i].barid);
+          States.push(data[i].State);
+          students.push(parseInt(data[i].IntStudents.replace(",", "")));
+          jobs.push(parseInt(data[i].Jobs.replace(",", "")));
+          count++;
+        }
+      }
+
+    mainbar1(States,students,jobs);
+    id_arr = [];
+    States = [];
+    students = [];
+    jobs = [];
+
+    for (var i = 0; i < data.length; i++) {
+      if(data[i].year==baryear){
+          id_arr.push(data[i].barid);
+          States.push(data[i].State);
+          students.push(parseInt(data[i].IntStudents.replace(",", "")));
+          jobs.push(parseInt(data[i].Jobs.replace(",", "")));
+        }
+      }
+    mainbar(States,students,jobs);
+  });
+
+  function mainbar1(States,students,jobs){
+    //console.log(States,students,jobs);
+      Highcharts.chart('barchart', {
+          chart: {
+              type: 'bar'
+          },
+          title: {
+              text: 'Total Students and Jobs supported by State'
+          },
+          xAxis: {
+              categories: States
+          },
+          yAxis: [{
+              min: 0,
+              title: {
+                  text: 'Students'
+              }
+          }],
+          legend: {
+              shadow: false
+          },
+          tooltip: {
+              shared: true
+          },
+          plotOptions: {
+              column: {
+                  grouping: false,
+                  shadow: false,
+                  borderWidth: 0
+              }
+          },
+          series: [{
+              name: 'Students',
+              color: 'rgba(165,170,217,1)',
+              data: students,
+              pointPadding: -0.4,
+            pointPlacement: 0
+          }, {
+              name: 'Jobs',
+              color: 'rgba(126,86,134,.9)',
+              data: jobs,
+              pointPadding: 0.5,
+            pointPlacement: 0.25
+          }]
+      });
+    }
+
+    function mainbar(States,students,jobs){
+    //console.log(States,students,jobs);
+      Highcharts.chart('barchartfull', {
+          chart: {
+              type: 'bar'
+          },
+          title: {
+              text: 'Total Students and Jobs supported by State'
+          },
+          xAxis: {
+              categories: States
+          },
+          yAxis: [{
+              min: 0,
+              title: {
+                  text: 'Students'
+              }
+          }],
+          legend: {
+              shadow: false
+          },
+          tooltip: {
+              shared: true
+          },
+          plotOptions: {
+              column: {
+                  grouping: false,
+                  shadow: false,
+                  borderWidth: 0
+              }
+          },
+          series: [{
+              name: 'Students',
+              color: 'rgba(165,170,217,1)',
+              data: students,
+              pointPadding: -0.4,
+            pointPlacement: 0
+          }, {
+              name: 'Jobs',
+              color: 'rgba(126,86,134,.9)',
+              data: jobs,
+              pointPadding: 0.5,
+            pointPlacement: 0.25
+          }]
+      });
+    }
+
+  }
+//Bullet bar chart end -------------->
+
+//Bubble chart start -------------->
+
+function drawbubble(id,state){
+
+$( ".divbubblechart" ).show();
+
+    d3.csv("sampleusbar.csv", function(tsv) {
+    
+    var datab=tsv;
+    var years = ['2013','2014','2015','2016']
+    var arr1 = [];
+      var arr2 = [];
+      var arr3 = [];
+      var arr4 = [];
+      //var id = 53;
+
+      for (var i = 0; i < datab.length; i++) {
+        if(datab[i].year=='2013'&&datab[i].id==id){
+            //arr1.push(datab[i].barid);
+            arr1.push(parseInt(datab[i].IntStudents.replace(",", "")));
+            arr1.push(parseInt(datab[i].Jobs.replace(",", "")));
+            arr1.push(parseFloat(datab[i].usd.replace("$", "").replace(",", "")));
+          }
+          if(datab[i].year=='2014'&&datab[i].id==id){
+            //arr1.push(datab[i].barid);
+            arr2.push(parseInt(datab[i].IntStudents.replace(",", "")));
+            arr2.push(parseInt(datab[i].Jobs.replace(",", "")));
+            arr2.push(parseFloat(datab[i].usd.replace("$", "").replace(",", "")));
+          }
+          if(datab[i].year=='2015'&&datab[i].id==id){
+            //arr1.push(datab[i].barid);
+            arr3.push(parseInt(datab[i].IntStudents.replace(",", "")));
+            arr3.push(parseInt(datab[i].Jobs.replace(",", "")));
+            arr3.push(parseFloat(datab[i].usd.replace("$", "").replace(",", "")));
+          }
+          if(datab[i].year=='2016'&&datab[i].id==id){
+            //arr1.push(datab[i].barid);
+            arr4.push(parseInt(datab[i].IntStudents.replace(",", "")));
+            arr4.push(parseInt(datab[i].Jobs.replace(",", "")));
+            arr4.push(parseFloat(datab[i].usd.replace("$", "").replace(",", "")));
+          }
+        }
+        //console.log(arr1,arr2,arr3,arr4);
+    mainbubble(arr1,arr2,arr3,arr4,state);
+  });
+    //mainbar();
+
+    function mainbubble(arr1,arr2,arr3,arr4){
+      Highcharts.chart('bubblechart', {
+
+          chart: {
+              type: 'bubble',
+              plotBorderWidth: 1,
+              zoomType: 'xy'
+          },
+
+          title: {
+              text: 'Trend bubbles for '+state
+          },
+           tooltip: {
+              useHTML: true,
+              headerFormat: '<table>',
+              pointFormat:
+                  '<tr><th>Students:</th><td>{point.x}</td></tr>' +
+                  '<tr><th>Jobs:</th><td>{point.y}</td></tr>' +
+                  '<tr><th>Economy:</th><td>${point.z}million</td></tr>',
+              footerFormat: '</table>',
+              followPointer: true
+          },
+          xAxis: {
+              gridLineWidth: 1,
+              title: {
+                text: 'Total Students'
+            }
+          },
+
+          yAxis: {
+              startOnTick: false,
+              title: {
+                text: 'Total Jobs'
+            },
+              endOnTick: false
+              
+          },
+
+          series: [{
+              name: '2013',
+              data: [
+                  arr1
+              ],
+              marker: {
+                  fillColor: {
+                      radialGradient: { cx: 0.4, cy: 0.3, r: 0.7 },
+                      stops: [
+                          [0, '#edf8e9']
+                      ]
+                  }
+              }
+          }, {
+            name: '2014',
+              data: [
+                arr2
+              ],
+              marker: {
+                  fillColor: {
+                      radialGradient: { cx: 0.4, cy: 0.3, r: 0.7 },
+                      stops: [
+                          [0, '#bae4b3']
+                      ]
+                  }
+              }
+          },{
+            name: '2015',
+              data: [
+                arr3
+              ],
+              marker: {
+                  fillColor: {
+                      radialGradient: { cx: 0.4, cy: 0.3, r: 0.7 },
+                      stops: [
+                          [0, '#74c476']
+                      ]
+                  }
+              }
+          },{
+            name: '2016',
+              data: [
+                arr4
+              ],
+              marker: {
+                  fillColor: {
+                      radialGradient: { cx: 0.4, cy: 0.3, r: 0.7 },
+                      stops: [
+                          [0, '#238b45']
+                      ]
+                  }
+              }
+          }
+          ]
+
+      });
+    }
+}
+
+//Bubble chart end -------------->
+
+//World map start -------------->
+function drawworld(){
+
+var y = d3.selectAll("#world_div")['0']['0'].childNodes;
+console.log("world"+y);
+  d3.selectAll(y).remove();
+  
+  var width = 960,
+    height = 580;
+var ext_color_domain = [0, 10,500,2000,5000,10000,50000,100000,200000,300000];
+// var color = d3.scale.category10();
+var color = d3.scale.linear()
+    .domain(ext_color_domain)
+    .range(["grey","#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"]);
+
+// var color = d3.scale.linear()
+//     .domain([0, 10, 10000])
+//     .range(["grey","brown", "steelblue"]);
+
+var projection = d3.geo.mercator()
+         .translate([width/2, height/2+60])
+         .scale([120]);
+
+var wpath = d3.geo.path()
+    .projection(projection);
+
+var tool_div = d3.select("#world_div").append("div")   
+  .attr("class", "tooltip")               
+  .style("opacity", 0);
+
+var world_svg = d3.select("#world_div").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .append("g")
+
+countries_select = world_svg.append("g")
+           .attr("id", "countries");
+
+
+d3.json("world-50m.json", function(error, world) {
+d3.tsv("world-country-names.tsv", function(tsv) {
+      var names = {};
+    tsv.forEach(function(d,i){
+      names[d.id] = d.name;
+    //console.log(names[d.id])
+    });
+  if (error) throw error;
+d3.csv("sampleworld.csv", function(csv) {
+  var world_data=csv;
+var wyear = $('#slider').slider('value');
+
+function getIntlStudents(id){
+for (var i = 0; i < world_data.length; i++) {
+  if (id!=undefined&&world_data[i].origin.trim()==id.trim()&&world_data[i].Year==wyear){
+    //console.log(id);
+    return world_data[i].students.replace(",", "");
+    break;
+  }
+}
+}
+
+
+  var countries = topojson.feature(world, world.objects.countries).features,
+      neighbors = topojson.neighbors(world.objects.countries.geometries)
+      ;
+
+  
+
+  world_svg.selectAll("path")
+      .data(countries)
+    .enter().insert("path")
+      .attr("class", "country")
+      .attr("d", wpath)
+      .attr("id",function(d) { return names[d.id]; })
+      .style("fill", function(d, i) { 
+        if(getIntlStudents(names[d.id])!=undefined && getIntlStudents(names[d.id])!=null)
+          return color(getIntlStudents(names[d.id])); 
+        else 
+          return color(0);
+        })
+      //Adding mouseevents
+  .on("mouseover", function(d) {
+    d3.select(this).transition().duration(300).style("opacity", 1);
+    tool_div.transition().duration(100)
+    .style("opacity", 1)
+    //tool_div.text(names[d.id] + " : " + getIntlStudents(names[d.id]))
+    tool_div.html("<strong>Students from " + names[d.id] + ":</strong> <span style='color:#fb6a4a'>" + getIntlStudents(names[d.id]) + "</span>")
+    .style("left", (d3.event.pageX) + "px")
+    .style("top", (d3.event.pageY -30) + "px");
+  })
+  .on("mouseout", function() {
+    d3.select(this)
+    .transition().duration(300)
+    .style("opacity", 0.8);
+    tool_div.transition().duration(100)
+    .style("opacity", 0);
+  });
+
+  world_svg.insert("path")
+      .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
+      .attr("class", "boundary")
+      .attr("d", wpath);
+
+//Adding a legend
+  var legend = world_svg.selectAll("g.legend")
+  .data(ext_color_domain)
+  .enter().append("g")
+  .attr("class", "legend");
+
+  var ls_w = 20, ls_h = 20;
+
+  legend.append("rect")
+  .attr("x", 20)
+  .attr("y", function(d, i){ return height - (i*ls_h) - 2*ls_h;})
+  .attr("width", ls_w)
+  .attr("height", ls_h)
+  .style("fill", function(d, i) { return color(d); })
+  .style("opacity", 0.8);
+
+  legend.append("text")
+  .attr("x", 50)
+  .attr("y", function(d, i){ return height - (i*ls_h) - ls_h - 4;})
+  .text(function(d, i){ return ext_color_domain[i].toString(); });
+
+});
+});
+});
+
+d3.select(self.frameElement).style("height", height + "px");
+}
+//World map end -------------->
+</script>
+
+</div><!-- /.container -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="./project_files/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="./project_files/ie10-viewport-bug-workaround.js"></script>
+    <script src="https://use.fontawesome.com/991c4a4104.js"></script>
+
+</body></html>

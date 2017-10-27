@@ -1,0 +1,205 @@
+barid,id,State,IntStudents,usd,units,Jobs,year,political
+1,6,California,"149,328","$5,200.00 ",billion,"59,521",2016,D
+2,36,New York,"114,316","$3,900.00 ",billion,"46,854",2016,D
+3,48,Texas,"82,184","$1,900.00 ",billion,"24,269",2016,R
+4,25,Massachusetts,"59,436","$2,300.00 ",billion,"31,550",2016,D
+5,17,Illinois,"50,327","$1,600.00 ",billion,"22,270",2016,D
+6,42,Pennsylvania,"48,453","$1,700.00 ",billion,"24,153",2016,R
+7,12,Florida,"43,462","$1,300.00 ",billion,"15,910",2016,R
+8,39,Ohio,"37,752","$1,100.00 ",billion,"14,142",2016,R
+9,26,Michigan,"33,848","$1,100.00 ",billion,"13,722",2016,R
+10,18,Indiana,"29,219",$956.60 ,million,"12,088",2016,R
+11,53,Washington,"28,624",$825.60 ,million,"7,944",2016,D
+12,29,Missouri,"24,171",$696.40 ,million,"8,123",2016,R
+13,4,Arizona,"22,212",$620.40 ,million,"8,514",2016,R
+14,34,New Jersey,"21,228",$650.00 ,million,"8,666",2016,D
+15,13,Georgia,"21,122",$683.40 ,million,"9,482",2016,R
+16,51,Virginia,"19,549",$587.60 ,million,"7,852",2016,D
+17,37,North Carolina,"18,884",$508.60 ,million,"6,841",2016,R
+18,24,Maryland,"18,304",$576.40 ,million,"7,267",2016,D
+19,27,Minnesota,"14,941",$418.50 ,million,"4,148",2016,D
+20,41,Oregon,"14,382",$481.70 ,million,"5,476",2016,D
+21,9,Connecticut,"13,564",$518.30 ,million,"5,517",2016,D
+22,55,Wisconsin,"13,449",$364.00 ,million,"4,475",2016,R
+23,19,Iowa,"12,711",$365.80 ,million,"3,710",2016,R
+24,8,Colorado,"11,346",$378.30 ,million,"5,313",2016,D
+25,11,District of Columbia,"11,120",$438.10 ,million,"4,950",2016,D
+26,20,Kansas,"10,351",$247.20 ,million,"2,516",2016,R
+27,40,Oklahoma,"10,330",$274.80 ,million,"2,871",2016,R
+28,47,Tennessee,"9,094",$289.50 ,million,"3,898",2016,R
+29,1,Alabama,"8,561",$220.60 ,million,"2,414",2016,R
+30,49,Utah,"8,302",$193.10 ,million,"2,303",2016,R
+31,21,Kentucky,"8,043",$217.20 ,million,"1,910",2016,R
+32,22,Louisiana,"7,835",$216.90 ,million,"2,827",2016,R
+33,45,South Carolina,"6,253",$171.80 ,million,"1,821",2016,R
+34,31,Nebraska,"5,910",$148.40 ,million,"1,503",2016,R
+35,5,Arkansas,"5,665",$149.20 ,million,"1,114",2016,R
+36,44,Rhode Island,"5,409",$217.50 ,million,"2,368",2016,D
+37,10,Delaware,"5,052",$133.20 ,million,"1,725",2016,D
+38,33,New Hampshire,"4,506",$162.50 ,million,"1,963",2016,D
+39,16,Idaho,"4,501",$112.20 ,million,"1,241",2016,R
+40,15,Hawaii,"4,295",$108.90 ,million,969,2016,D
+41,54,West Virginia,"4,150",$115.40 ,million,"1,063",2016,R
+42,35,New Mexico,"3,767",$91.20 ,million,972,2016,D
+43,28,Mississippi,"3,533",$78.10 ,million,796,2016,R
+44,38,North Dakota,"2,571",$54.50 ,million,526,2016,R
+45,32,Nevada,"2,518",$72.50 ,million,834,2016,D
+46,46,South Dakota,"1,981",$37.90 ,million,297,2016,R
+47,30,Montana,"1,735",$50.50 ,million,547,2016,R
+48,50,Vermont,"1,712",$75.20 ,million,774,2016,D
+49,23,Maine,"1,396",$53.60 ,million,498,2016,D
+50,56,Wyoming,"1,157",$22.00 ,million,205,2016,R
+51,2,Alaska,488,$12.60 ,million,102,2016,R
+52,6,California,"135,130","$4,600.00 ",billion,"52,624",2015,D
+53,36,New York,"106,758","$3,700.00 ",billion,"43,865",2015,D
+54,48,Texas,"75,588","$1,700.00 ",billion,"21,524",2015,R
+55,25,Massachusetts,"55,447","$2,200.00 ",billion,"29,009",2015,D
+56,17,Illinois,"46,574","$1,400.00 ",billion,"20,881",2015,D
+57,42,Pennsylvania,"45,704","$1,600.00 ",billion,"22,565",2015,R
+58,12,Florida,"39,377","$1,200.00 ",billion,"15,086",2015,R
+59,39,Ohio,"35,761","$1,000.00 ",billion,"13,518",2015,R
+60,26,Michigan,"32,015","$1,000.00 ",billion,"13,533",2015,R
+61,18,Indiana,"28,104",$919.20 ,million,"11,990",2015,R
+62,53,Washington,"27,051",$789.10 ,million,"7,904",2015,D
+63,29,Missouri,"21,703",$615.10 ,million,"7,200",2015,R
+64,4,Arizona,"20,437",$618.20 ,million,"8,681",2015,R
+65,13,Georgia,"19,758",$642.90 ,million,"8,405",2015,R
+66,34,New Jersey,"19,196",$599.20 ,million,"7,578",2015,D
+67,51,Virginia,"18,220",$543.70 ,million,"7,170",2015,D
+68,37,North Carolina,"17,319",$458.80 ,million,"6,273",2015,R
+69,24,Maryland,"16,862",$523.80 ,million,"6,686",2015,D
+70,27,Minnesota,"14,438",$391.00 ,million,"4,045",2015,D
+71,41,Oregon,"14,422",$479.30 ,million,"5,515",2015,D
+72,55,Wisconsin,"12,751",$340.70 ,million,"4,277",2015,R
+73,19,Iowa,"12,220",$350.90 ,million,"3,630",2015,R
+74,20,Kansas,"12,020",$277.60 ,million,"2,755",2015,R
+75,9,Connecticut,"11,897",$461 ,million,"4,791",2015,D
+76,8,Colorado,"10,800",$352 ,million,"5,043",2015,D
+77,11,District of Columbia,"10,556",$407.50 ,million,"4,691",2015,D
+78,40,Oklahoma,"9,928",$260.20 ,million,"2,836",2015,R
+79,47,Tennessee,"9,507",$288.50 ,million,"3,535",2015,R
+80,49,Utah,"8,622",$202.60 ,million,"2,517",2015,R
+81,21,Kentucky,"8,104",$212.80 ,million,"1,876",2015,R
+82,1,Alabama,"7,901",$204.80 ,million,"2,297",2015,R
+83,22,Louisiana,"6,872",$182.20 ,million,"2,349",2015,R
+84,5,Arkansas,"5,918",$164.10 ,million,"1,411",2015,R
+85,45,South Carolina,"5,895",$156.70 ,million,"1,686",2015,R
+86,44,Rhode Island,"5,872",$228.30 ,million,"2,474",2015,D
+87,31,Nebraska,"5,774",$143.00 ,million,"1,488",2015,R
+88,16,Idaho,"4,592",$116.00 ,million,"1,156",2015,R
+89,10,Delaware,"4,051",$123.40 ,million,"1,613",2015,D
+90,15,Hawaii,"4,035",$104.50 ,million,966,2015,D
+91,33,New Hampshire,"3,784",$136.90 ,million,"1,710",2015,D
+92,35,New Mexico,"3,374",$80.70 ,million,899,2015,D
+93,54,West Virginia,"3,215",$85.00 ,million,886,2015,R
+94,28,Mississippi,"3,101",$65.40 ,million,708,2015,R
+95,38,North Dakota,"2,677",$56.80 ,million,579,2015,R
+96,32,Nevada,"2,556",$69.00 ,million,809,2015,D
+97,30,Montana,"2,146",$59.00 ,million,643,2015,R
+98,46,South Dakota,"1,782",$32.20 ,million,255,2015,R
+99,50,Vermont,"1,502",$61.00 ,million,602,2015,D
+100,23,Maine,"1,354",$50.00 ,million,488,2015,D
+101,56,Wyoming,"1,174",$22.10 ,million,211,2015,R
+102,2,Alaska,533,$15.70 ,million,145,2015,R
+103,6,California,"121,647","$4,076.00 ",million,"47,702",2014,D
+104,36,New York,"98,906","$3,295.10 ",million,"40,331",2014,D
+105,48,Texas,"64,277","$1,459.50 ",million,"18,671",2014,R
+106,25,Massachusetts,"51,240","$1,918.90 ",million,"26,553",2014,D
+107,17,Illinois,"42,527","$1,261.10 ",million,"19,036",2014,D
+108,42,Pennsylvania,"41,446","$1,391.20 ",million,"20,862",2014,R
+109,12,Florida,"36,249","$1,074.20 ",million,"13,903",2014,R
+110,39,Ohio,"32,498",$911.60 ,million,"12,400",2014,R
+111,26,Michigan,"29,648",$926.90 ,million,"12,763",2014,R
+112,18,Indiana,"26,406",$839.60 ,million,"11,431",2014,R
+113,53,Washington,"25,554",$737.00 ,million,"7,539",2014,D
+114,29,Missouri,"18,205",$509.30 ,million,"6,065",2014,R
+115,13,Georgia,"17,781",$545.30 ,million,"7,602",2014,R
+116,51,Virginia,"17,145",$487.50 ,million,"6,541",2014,D
+117,34,New Jersey,"17,082",$529.60 ,million,"6,833",2014,D
+118,24,Maryland,"16,121",$483.50 ,million,"6,328",2014,D
+119,37,North Carolina,"15,943",$416.60 ,million,"5,872",2014,R
+120,4,Arizona,"15,442",$442.70 ,million,"6,392",2014,R
+121,27,Minnesota,"13,765",$354.20 ,million,"3,775",2014,D
+122,41,Oregon,"13,360",$439.10 ,million,"5,256",2014,D
+123,55,Wisconsin,"11,718",$308.60 ,million,"4,132",2014,R
+124,19,Iowa,"11,318",$317.00 ,million,"3,419",2014,R
+125,20,Kansas,"10,631",$238.30 ,million,"2,519",2014,R
+126,9,Connecticut,"10,530",$375.50 ,million,"4,128",2014,D
+127,11,District of Columbia,"9,980",$377.60 ,million,"4,338",2014,D
+128,8,Colorado,"9,621",$303.40 ,million,"4,487",2014,D
+129,40,Oklahoma,"8,913",$219.90 ,million,"2,551",2014,R
+130,49,Utah,"8,449",$192.70 ,million,"2,462",2014,R
+131,47,Tennessee,"8,436",$242.30 ,million,"3,063",2014,R
+132,1,Alabama,"7,451",$182.50 ,million,"2,064",2014,R
+133,21,Kentucky,"7,370",$192.50 ,million,"1,756",2014,R
+134,22,Louisiana,"6,976",$175.20 ,million,"2,243",2014,R
+135,44,Rhode Island,"5,549",$212.20 ,million,"2,335",2014,D
+136,31,Nebraska,"5,292",$124.90 ,million,"1,335",2014,R
+137,45,South Carolina,"5,215",$125.80 ,million,"1,449",2014,R
+138,5,Arkansas,"4,964",$129.30 ,million,"1,206",2014,R
+139,15,Hawaii,"4,388",$107.10 ,million,996,2014,D
+140,10,Delaware,"4,228",$130.00 ,million,"1,773",2014,D
+141,16,Idaho,"3,810",$89.80 ,million,882,2014,R
+142,35,New Mexico,"3,711",$85.10 ,million,904,2014,D
+143,33,New Hampshire,"3,277",$111.80 ,million,"1,532",2014,D
+144,28,Mississippi,"2,840",$55.60 ,million,616,2014,R
+145,38,North Dakota,"2,773",$56.10 ,million,590,2014,R
+146,54,West Virginia,"2,733",$65.30 ,million,691,2014,R
+147,32,Nevada,"2,336",$60.00 ,million,732,2014,D
+148,30,Montana,"1,691",$44.70 ,million,514,2014,R
+149,46,South Dakota,"1,560",$27.40 ,million,222,2014,R
+150,50,Vermont,"1,241",$48.20 ,million,451,2014,D
+151,23,Maine,"1,198",$44.10 ,million,443,2014,D
+152,56,Wyoming,"1,124",$20.70 ,million,201,2014,R
+153,2,Alaska,542,$13.70 ,million,116,2014,R
+154,6,California,"111,250","$3,617.80 ",million,"43,178",2013,D
+155,36,New York,"88,180","$2,824.70 ",million,"35,233",2013,D
+156,48,Texas,"62,901","$1,380.40 ",million,"18,305",2013,R
+157,25,Massachusetts,"46,478","$1,715.10 ",million,"24,288",2013,D
+158,17,Illinois,"39,047","$1,098.70 ",million,"17,231",2013,D
+159,42,Pennsylvania,"37,245","$1,213.70 ",million,"18,963",2013,R
+160,12,Florida,"32,817",$945.00 ,million,"12,867",2013,R
+161,39,Ohio,"28,373",$772.50 ,million,"10,908",2013,R
+162,26,Michigan,"26,926",$822.90 ,million,"11,612",2013,R
+163,18,Indiana,"24,389",$775.20 ,million,"11,122",2013,R
+164,53,Washington,"22,896",$643.00 ,million,"6,736",2013,D
+165,29,Missouri,"17,279",$452.10 ,million,"5,732",2013,R
+166,13,Georgia,"16,661",$501.00 ,million,"7,239",2013,R
+167,51,Virginia,"16,507",$456.40 ,million,"6,357",2013,D
+168,34,New Jersey,"15,673",$462.80 ,million,"6,099",2013,D
+169,24,Maryland,"15,525",$462.90 ,million,"6,123",2013,D
+170,37,North Carolina,"15,015",$385.30 ,million,"5,561",2013,R
+171,4,Arizona,"13,307",$367.90 ,million,"5,459",2013,R
+172,27,Minnesota,"13,254",$332.20 ,million,"3,633",2013,D
+173,41,Oregon,"11,682",$375.00 ,million,"4,577",2013,D
+174,19,Iowa,"11,563",$325.20 ,million,"3,421",2013,R
+175,55,Wisconsin,"10,437",$268.20 ,million,"3,761",2013,R
+176,9,Connecticut,"9,955",$339.90 ,million,"3,875",2013,D
+177,20,Kansas,"9,597",$213.20 ,million,"2,368",2013,R
+178,11,District of Columbia,"9,237",$338.40 ,million,"4,042",2013,D
+179,40,Oklahoma,"9,059",$215.90 ,million,"2,440",2013,R
+180,8,Colorado,"8,975",$281.00 ,million,"4,210",2013,D
+181,49,Utah,"8,311",$183.90 ,million,"2,478",2013,R
+182,22,Louisiana,"7,717",$175.90 ,million,"2,338",2013,R
+183,47,Tennessee,"7,323",$224.80 ,million,"3,057",2013,R
+184,1,Alabama,"7,108",$164.10 ,million,"1,931",2013,R
+185,21,Kentucky,"6,378",$158.60 ,million,"1,508",2013,R
+186,44,RhodeIsland,"5,272",$196.90 ,million,"2,232",2013,D
+187,31,Nebraska,"5,143",$115.50 ,million,"1,262",2013,R
+188,45,SouthCarolina,"5,083",$125.10 ,million,"1,473",2013,R
+189,5,Arkansas,"5,030",$127.20 ,million,"1,195",2013,R
+190,15,Hawaii,"4,413",$108.60 ,million,"1,027",2013,D
+191,10,Delaware,"4,343",$121.50 ,million,"1,766",2013,D
+192,35,New Mexico,"3,555",$81.40 ,million,909,2013,D
+193,16,Idaho,"3,261",$72.00 ,million,711,2013,R
+194,33,New Hampshire,"3,101",$103.80 ,million,"1,423",2013,D
+195,38,North Dakota,"3,093",$62.00 ,million,642,2013,R
+196,28,Mississippi,"2,705",$51.90 ,million,586,2013,R
+197,54,WestVirginia,"2,685",$59.60 ,million,639,2013,R
+198,32,Nevada,"2,362",$61.00 ,million,773,2013,D
+199,30,Montana,"1,611",$42.10 ,million,497,2013,R
+200,46,SouthDakota,"1,504",$26.60 ,million,214,2013,R
+201,23,Maine,"1,405",$46.40 ,million,458,2013,D
+202,50,Vermont,"1,214",$46.20 ,million,451,2013,D
+203,56,Wyoming,"1,107",$20.30 ,million,203,2013,R
+204,2,Alaska,648,$16.80 ,million,147,2013,R

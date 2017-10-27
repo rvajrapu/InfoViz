@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  background: #fcfcfa;
+}
+
+#world_div > svg > g > .stroke {
+  fill: none;
+  stroke: #000;
+  stroke-width: 3px;
+}
+
+#world_div > svg > g > .fill {
+  fill: #fff;
+}
+
+#world_div > svg > g > .graticule {
+  fill: none;
+  stroke: #777;
+  stroke-width: .5px;
+  stroke-opacity: .5;
+}
+
+#world_div > svg > g > .land {
+  fill: #222;
+}
+
+#world_div > svg > g > .boundary {
+  fill: none;
+  stroke: #000;
+  stroke-width: .6px;
+}
+#world_div > svg > g > .country {
+  fill: none;
+  stroke: #000;
+  stroke-width: .6px;
+}
+
+#world_div > svg > g > .legend {
+  font-size: 12px;
+}
+
+/*#world_div > div.tooltip {   
+  position: absolute;           
+  text-align: center;           
+  width: 150px;                  
+  height: 25px;                 
+  padding: 2px;             
+  font-size: 10px;     
+  background: #FFFFE0;
+  border: 1px;      
+  border-radius: 8px;           
+  pointer-events: none;         
+}*/
+#world_div > div.tooltip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 4px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+  position: absolute;
+  font-size: 12px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+#world_div > div.tooltip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 4px !important;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+#world_div > div.tooltip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+</style>
+<body>
+<script src="d3.v3.min.js"></script>
+<script src="topojson.v1.min.js"></script>
+<script src="//d3js.org/d3.geo.projection.v0.min.js"></script>
+<div id="world_div"></div>
+<script>
+
+
+var width = 960,
+    height = 580;
+var ext_color_domain = [0, 10,500,2000,5000,10000,50000,100000,200000,300000];
+// var color = d3.scale.category10();
+var color = d3.scale.linear()
+    .domain(ext_color_domain)
+    .range(["grey","#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"]);
+
+// var color = d3.scale.linear()
+//     .domain([0, 10, 10000])
+//     .range(["grey","brown", "steelblue"]);
+
+var projection = d3.geo.mercator()
+         .translate([width/2, height/2+60])
+         .scale([120]);
+
+var path = d3.geo.path()
+    .projection(projection);
+
+var tool_div = d3.select("#world_div").append("div")   
+  .attr("class", "tooltip")               
+  .style("opacity", 0);
+
+var world_svg = d3.select("#world_div").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .append("g")
+
+countries_select = world_svg.append("g")
+           .attr("id", "countries");
+
+
+d3.json("world-50m.json", function(error, world) {
+d3.tsv("world-country-names.tsv", function(tsv) {
+      var names = {};
+    tsv.forEach(function(d,i){
+      names[d.id] = d.name;
+    //console.log(names[d.id])
+    });
+  if (error) throw error;
+d3.csv("sampleworld.csv", function(csv) {
+  var world_data=csv;
+
+function getIntlStudents(id){
+for (var i = 0; i < world_data.length; i++) {
+  if (id!=undefined&&world_data[i].origin.trim()==id.trim()&&world_data[i].Year=='2016'){
+    //console.log(id);
+    return world_data[i].students.replace(",", "");
+    break;
+  }
+}
+}
+
+  var countries = topojson.feature(world, world.objects.countries).features,
+      neighbors = topojson.neighbors(world.objects.countries.geometries)
+      ;
+
+  
+
+  world_svg.selectAll("path")
+      .data(countries)
+    .enter().insert("path")
+      .attr("class", "country")
+      .attr("d", path)
+      .attr("id",function(d) { return names[d.id]; })
+      .style("fill", function(d, i) { 
+        if(getIntlStudents(names[d.id])!=undefined && getIntlStudents(names[d.id])!=null)
+          return color(getIntlStudents(names[d.id])); 
+        else 
+          return color(0);
+        })
+      //Adding mouseevents
+  .on("mouseover", function(d) {
+    d3.select(this).transition().duration(300).style("opacity", 1);
+    tool_div.transition().duration(100)
+    .style("opacity", 1)
+    //tool_div.text(names[d.id] + " : " + getIntlStudents(names[d.id]))
+    tool_div.html("<strong>Students from " + names[d.id] + ":</strong> <span style='color:red'>" + getIntlStudents(names[d.id]) + "</span>")
+    .style("left", (d3.event.pageX) + "px")
+    .style("top", (d3.event.pageY -30) + "px");
+  })
+  .on("mouseout", function() {
+    d3.select(this)
+    .transition().duration(300)
+    .style("opacity", 0.8);
+    tool_div.transition().duration(100)
+    .style("opacity", 0);
+  });
+
+  world_svg.insert("path")
+      .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
+      .attr("class", "boundary")
+      .attr("d", path);
+
+//Adding a legend
+  var legend = world_svg.selectAll("g.legend")
+  .data(ext_color_domain)
+  .enter().append("g")
+  .attr("class", "legend");
+
+  var ls_w = 20, ls_h = 20;
+
+  legend.append("rect")
+  .attr("x", 20)
+  .attr("y", function(d, i){ return height - (i*ls_h) - 2*ls_h;})
+  .attr("width", ls_w)
+  .attr("height", ls_h)
+  .style("fill", function(d, i) { return color(d); })
+  .style("opacity", 0.8);
+
+  legend.append("text")
+  .attr("x", 50)
+  .attr("y", function(d, i){ return height - (i*ls_h) - ls_h - 4;})
+  .text(function(d, i){ return ext_color_domain[i].toString(); });
+
+});
+});
+});
+
+d3.select(self.frameElement).style("height", height + "px");
+
+</script>

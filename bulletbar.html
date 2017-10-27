@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>D3: Setting path fills</title>
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+		<script src="https://code.highcharts.com/modules/exporting.js"></script>
+		<script src="d3.v3.min.js"></script>
+		<style type="text/css">
+			/* No style rules here yet */		
+		</style>
+	</head>
+	<body>
+	<div id="barchart" style="width: 510px; min-height: 1200px; margin: 0 auto"></div>
+	<div id="container" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+
+		<script type="text/javascript">
+
+	d3.csv("sampleus.csv", function(tsv) {
+		
+		var data=tsv;
+		var id_arr = [];
+		var States = [];
+		var students = [];
+		var jobs = [];
+
+		for (var i = 0; i < data.length; i++) {
+		  		id_arr.push(data[i].id);
+		  }
+		//console.log(id_arr);
+		for (var i = 0; i < data.length; i++) {
+		  if (data[i].id==id_arr[i]&&data[i].year=='2016'){
+		    States.push(data[i].State);
+		  }
+		 }
+		 for (var i = 0; i < data.length; i++) {
+		  if (data[i].id==id_arr[i]&&data[i].year=='2016'){
+		    students.push(parseInt(data[i].IntStudents.replace(",", "")));
+		  }
+		 }
+		 //console.log(States);
+		 for (var i = 0; i < data.length; i++) {
+		  if (data[i].id==id_arr[i]&&data[i].year=='2016'){
+		    jobs.push(parseInt(data[i].Jobs.replace(",", "")));
+		  }
+		 }
+		mainbar1(States,students,jobs);
+	});
+		//mainbar();
+
+		function mainbar(){
+			Highcharts.chart('container', {
+			    chart: {
+			        type: 'column'
+			    },
+			    title: {
+			        text: 'Total Students and Jobs supported by State'
+			    },
+			    xAxis: {
+			        categories: [
+			            'Seattle HQ',
+			            'San Francisco',
+			            'Tokyo',
+			            'India'
+			        ]
+			    },
+			    yAxis: [{
+			        min: 0,
+			        title: {
+			            text: 'Students'
+			        }
+			    }],
+			    legend: {
+			        shadow: false
+			    },
+			    tooltip: {
+			        shared: false
+			    },
+			    plotOptions: {
+			        column: {
+			            grouping: false,
+			            shadow: false,
+			            borderWidth: 0
+			        }
+			    },
+			    series: [{
+			        name: 'Students',
+			        color: 'rgba(165,170,217,1)',
+			        data: [150, 103, 80,100],
+			        pointPadding: 0.3,
+			        pointPlacement: 0
+			    }, {
+			        name: 'Jobs',
+			        color: 'rgba(126,86,134,.9)',
+			        data: [110, 90, 40,50],
+			        pointPadding: 0.4,
+			        pointPlacement: 0
+			    }]
+			});
+		}
+	function mainbar1(States,students,jobs){
+		console.log(States,students,jobs);
+			Highcharts.chart('barchart', {
+			    chart: {
+			        type: 'bar'
+			    },
+			    title: {
+			        text: 'Total Students and Jobs supported by State'
+			    },
+			    xAxis: {
+			        categories: States
+			    },
+			    yAxis: [{
+			        min: 0,
+			        title: {
+			            text: 'Students'
+			        }
+			    }],
+			    legend: {
+			        shadow: false
+			    },
+			    tooltip: {
+			        shared: true
+			    },
+			    plotOptions: {
+			        column: {
+			            grouping: false,
+			            shadow: false,
+			            borderWidth: 0
+			        }
+			    },
+			    series: [{
+			        name: 'Students',
+			        color: 'rgba(165,170,217,1)',
+			        data: students,
+			        pointPadding: -0.4,
+			  		pointPlacement: 0
+			    }, {
+			        name: 'Jobs',
+			        color: 'rgba(126,86,134,.9)',
+			        data: jobs,
+			        pointPadding: 0.5,
+			  		pointPlacement: 0.25
+			    }]
+			});
+		}
+		</script>
+	</body>
+</html>
